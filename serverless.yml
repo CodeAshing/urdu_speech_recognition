@@ -1,4 +1,4 @@
-service: flask-demo
+service: urdu-recognition
  
 plugins:
   - serverless-python-requirements
