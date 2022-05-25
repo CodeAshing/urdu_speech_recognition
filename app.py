@@ -130,46 +130,12 @@ def init():
 async def predictresult():
 
     google_response = google_prediction()
-
-    if google_response['code'] == 200:
-        prediction = google_response['data']['prediction']
-
-        s3_upload_response = await upload_audio_to_s3()
-
-        if s3_upload_response['code'] == 200:
-
-            file_url = s3_upload_response['data']['file_url']
-
-            dynamoDB_upload_response = upload_to_dynamoDB(
-                file_url, prediction)
-
-            return jsonify(dynamoDB_upload_response), dynamoDB_upload_response['code']
-
-        else:
-            return jsonify(s3_upload_response), s3_upload_response['code']
-
-    else:
-        return jsonify(google_response), google_response['code']
+    
+    return jsonify(google_response), google_response['code']
 
 
 @app.route("/data", methods=['GET'])
 def data():
-
-    # TableName = 'recognised_audio_collection'
-
-    # dynamodb = boto3.client('dynamodb', region_name=region_name)
-
-    # dynamodb_response = dynamodb.scan(
-    #     TableName=TableName
-    # )
-    # dynamodb_response = dynamodb_response['Items']
-
-    # if dynamodb_response:
-
-    #     return jsonify(success_message(dynamodb_response, "Record fetched succesfully", 200)), 200
-
-    # else:
-    #     return jsonify(error_message("No record found", 404)), 404
 
     dynamoDB_response = get_data_from_dynamodb()
 
