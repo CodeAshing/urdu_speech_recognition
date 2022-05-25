@@ -3,4 +3,3 @@ Werkzeug==1.0.1
 boto3==1.20.29
 markupsafe==2.0.1
 random
-speech_recognition
