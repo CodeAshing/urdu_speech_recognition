@@ -129,7 +129,27 @@ def init():
 @app.route('/predict', methods=['POST'])
 def predictresult():
 
-    return jsonify(success_message([], "Hey there, I am running", 200)), 200
+    google_response = google_prediction()
+
+    if google_response['code'] == 200:
+        prediction = google_response['data']['prediction']
+
+        s3_upload_response = upload_audio_to_s3()
+
+        if s3_upload_response['code'] == 200:
+
+            file_url = s3_upload_response['data']['file_url']
+
+            dynamoDB_upload_response = upload_to_dynamoDB(
+                file_url, prediction)
+
+            return jsonify(dynamoDB_upload_response), dynamoDB_upload_response['code']
+
+        else:
+            return jsonify(s3_upload_response), s3_upload_response['code']
+
+    else:
+        return jsonify(google_response), google_response['code']
 
 
 @app.route("/data", methods=['GET'])

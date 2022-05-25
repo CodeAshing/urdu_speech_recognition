@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/urdu-recognition/dev/1653513580325-2022-05-25T21:19:40.325Z/urdu-recognition.zip"
+          "S3Key": "serverless/urdu-recognition/dev/1653513950736-2022-05-25T21:25:50.736Z/urdu-recognition.zip"
         },
         "Handler": "wsgi_handler.handler",
         "Runtime": "python3.8",
@@ -179,14 +179,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionHsUfmNWdmO5gxe3fUA1unQCi25CesTupqxi74lrMgDI": {
+    "AppLambdaVersionnULoQpa4kNXfU4NauNGKndXo7Z2mwcljWhPAiMTOg": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "oqYIrvCKKI6Vl4wLmITq+L9ne6GEa/iwAWq73Keg8IE="
+        "CodeSha256": "qcp+FG1+saPe3g/wEjNHyALWFDabEiZA7BpOgw3oqzM="
       }
     },
     "ApiGatewayRestApi": {
@@ -311,7 +311,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1653513536594": {
+    "ApiGatewayDeployment1653513901061": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -374,7 +374,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionHsUfmNWdmO5gxe3fUA1unQCi25CesTupqxi74lrMgDI"
+        "Ref": "AppLambdaVersionnULoQpa4kNXfU4NauNGKndXo7Z2mwcljWhPAiMTOg"
       },
       "Export": {
         "Name": "sls-urdu-recognition-dev-AppLambdaFunctionQualifiedArn"
