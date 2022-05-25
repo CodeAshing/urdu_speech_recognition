@@ -129,9 +129,37 @@ def init():
 @app.route('/predict', methods=['POST'])
 async def predictresult():
 
-    google_response = google_prediction()
-    
-    return jsonify(google_response), google_response['code']
+    try:
+
+        predicted_text_urdu = ""
+        AUDIO_FILE = '/tmp/audio.wav'
+
+        audio = request.files.get('audio')
+        audio.save(AUDIO_FILE)
+
+        recognizer = sr.Recognizer()
+
+        with sr.AudioFile(AUDIO_FILE) as source:
+            audio = recognizer.record(source)  # read the entire audio file
+
+        # recognize speech using Google Speech Recognition
+        try:
+            predicted_text_urdu = recognizer.recognize_google(
+                audio, language="ur")
+
+            response_dictionary = {"prediction": predicted_text_urdu}
+
+            return success_message(response_dictionary, "Audio converted succesfully", 200)
+
+        except sr.UnknownValueError:
+            return error_message("Could not understand Audio", 409)
+        except sr.RequestError as e:
+            return error_message("Error: {0}".format(e), 409)
+
+    except Exception as e:
+        print(e)
+        return error_message("Error: {0}".format(e), 409)
+
 
 
 @app.route("/data", methods=['GET'])
