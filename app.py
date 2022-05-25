@@ -123,7 +123,7 @@ def get_data_from_dynamodb():
 
 @app.route("/")
 def init():
-    return ('Hey there, I am running')
+    return jsonify(success_message([],"Hey there, I am running",200)), 200
 
 
 @app.route('/predict', methods=['POST'])
