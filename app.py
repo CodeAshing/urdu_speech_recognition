@@ -124,6 +124,40 @@ def get_data_from_dynamodb():
 
 @app.route("/")
 def init():
-    return ('Hey there, I am running on port 5000')
+    return ('Hey there, I am running')
+
+
+@app.route('/predict', methods=['POST'])
+async def predictresult():
+
+    google_response = google_prediction()
+
+    if google_response['code'] == 200:
+        prediction = google_response['data']['prediction']
+
+        s3_upload_response = await upload_audio_to_s3()
+
+        if s3_upload_response['code'] == 200:
+
+            file_url = s3_upload_response['data']['file_url']
+
+            dynamoDB_upload_response = upload_to_dynamoDB(
+                file_url, prediction)
+
+            return dynamoDB_upload_response, dynamoDB_upload_response['code']
+
+        else:
+            return s3_upload_response, s3_upload_response['code']
+
+    else:
+        return google_response, google_response['code']
+
+
+@app.route("/data", methods=['GET'])
+def data():
+
+    dynamoDB_response = get_data_from_dynamodb()
+
+    return dynamoDB_response, dynamoDB_response['code']
 
 
