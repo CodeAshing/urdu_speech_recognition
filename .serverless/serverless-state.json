@@ -173,7 +173,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/urdu-recognition/dev/1653516148451-2022-05-25T22:02:28.451Z/urdu-recognition.zip"
+                "S3Key": "serverless/urdu-recognition/dev/1653517608771-2022-05-25T22:26:48.771Z/urdu-recognition.zip"
               },
               "Handler": "wsgi_handler.handler",
               "Runtime": "python3.8",
@@ -191,14 +191,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionQGctRHyTOENCUEvIuUEspSH0VMdQOSvZlIcxFE3n5s": {
+          "AppLambdaVersionGOOnVpktf8JxwdS4K7bzdCDnvIbzI3sCncFkQHygB0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "i2gzVEgRAEm4Xg3Jdo8qAc6wLpQmRQDH92Bc5n0j55g="
+              "CodeSha256": "fbaqI7aWt3aQrmjegjTqVlrPzThJ6hY3oxLYhQjSCyU="
             }
           },
           "ApiGatewayRestApi": {
@@ -323,7 +323,7 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1653516094587": {
+          "ApiGatewayDeployment1653517569491": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -386,7 +386,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionQGctRHyTOENCUEvIuUEspSH0VMdQOSvZlIcxFE3n5s"
+              "Ref": "AppLambdaVersionGOOnVpktf8JxwdS4K7bzdCDnvIbzI3sCncFkQHygB0"
             },
             "Export": {
               "Name": "sls-urdu-recognition-dev-AppLambdaFunctionQualifiedArn"
@@ -535,7 +535,7 @@
         "timeout": 6,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionQGctRHyTOENCUEvIuUEspSH0VMdQOSvZlIcxFE3n5s"
+        "versionLogicalId": "AppLambdaVersionGOOnVpktf8JxwdS4K7bzdCDnvIbzI3sCncFkQHygB0"
       }
     },
     "configValidationMode": "warn",
@@ -560,7 +560,7 @@
     "artifact": "/home/asharib/Downloads/FYPshahzad/urdu_speech_recognition/.serverless/urdu-recognition.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/urdu-recognition/dev/1653516148451-2022-05-25T22:02:28.451Z",
+    "artifactDirectoryName": "serverless/urdu-recognition/dev/1653517608771-2022-05-25T22:26:48.771Z",
     "artifact": "urdu-recognition.zip"
   }
 }
