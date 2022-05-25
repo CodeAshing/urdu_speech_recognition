@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import speech_recognition as sr
 import boto3
 import random
@@ -113,7 +113,6 @@ def get_data_from_dynamodb():
     )
     dynamodb_response = dynamodb_response['Items']
 
-    print(dynamodb_response)
     if dynamodb_response:
 
         return success_message(dynamodb_response, "Record fetched succesfully", 200)
@@ -144,13 +143,13 @@ async def predictresult():
             dynamoDB_upload_response = upload_to_dynamoDB(
                 file_url, prediction)
 
-            return dynamoDB_upload_response, dynamoDB_upload_response['code']
+            return jsonify(dynamoDB_upload_response), dynamoDB_upload_response['code']
 
         else:
-            return s3_upload_response, s3_upload_response['code']
+            return jsonify(s3_upload_response), s3_upload_response['code']
 
     else:
-        return google_response, google_response['code']
+        return jsonify(google_response), google_response['code']
 
 
 @app.route("/data", methods=['GET'])
@@ -158,6 +157,6 @@ def data():
 
     dynamoDB_response = get_data_from_dynamodb()
 
-    return dynamoDB_response, dynamoDB_response['code']
+    return jsonify(dynamoDB_response), dynamoDB_response['code']
 
 
