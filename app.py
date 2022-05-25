@@ -4,8 +4,8 @@ import boto3
 import random
 
 app = Flask(__name__)
- 
- 
+
+
 region_name = 'me-south-1'
 
 
@@ -123,7 +123,7 @@ def get_data_from_dynamodb():
 
 @app.route("/")
 def init():
-    return jsonify(success_message([],"Hey there, I am running",200)), 200
+    return jsonify(success_message([], "Hey there, I am running", 200)), 200
 
 
 @app.route('/predict', methods=['POST'])
@@ -142,24 +142,11 @@ async def predictresult():
         with sr.AudioFile(AUDIO_FILE) as source:
             audio = recognizer.record(source)  # read the entire audio file
 
-        # recognize speech using Google Speech Recognition
-        try:
-            predicted_text_urdu = recognizer.recognize_google(
-                audio, language="ur")
-
-            response_dictionary = {"prediction": predicted_text_urdu}
-
-            return success_message(response_dictionary, "Audio converted succesfully", 200)
-
-        except sr.UnknownValueError:
-            return error_message("Could not understand Audio", 409)
-        except sr.RequestError as e:
-            return error_message("Error: {0}".format(e), 409)
+        return jsonify(success_message([], "Hey there, I am running", 200)), 200
 
     except Exception as e:
         print(e)
         return error_message("Error: {0}".format(e), 409)
-
 
 
 @app.route("/data", methods=['GET'])
@@ -168,5 +155,3 @@ def data():
     dynamoDB_response = get_data_from_dynamodb()
 
     return jsonify(dynamoDB_response), dynamoDB_response['code']
-
-
