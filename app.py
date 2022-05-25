@@ -127,8 +127,8 @@ def init():
 
 
 @app.route('/predict', methods=['POST'])
-async def predictresult():
-    
+def predictresult():
+
     return jsonify(success_message([], "Hey there, I am running", 200)), 200
 
 
