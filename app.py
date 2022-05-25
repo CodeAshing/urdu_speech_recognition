@@ -121,9 +121,9 @@ def get_data_from_dynamodb():
         return error_message("No record found", 404)
 
 
-# @app.route("/")
-# def init():
-#     return jsonify(success_message([],"Hey there, I am running",200)), 200
+@app.route("/")
+def init():
+    return jsonify(success_message([],"Hey there, I am running",200)), 200
 
 
 @app.route('/predict', methods=['POST'])
@@ -152,7 +152,7 @@ async def predictresult():
         return jsonify(google_response), google_response['code']
 
 
-@app.route("/", methods=['GET'])
+@app.route("/data", methods=['GET'])
 def data():
 
     dynamoDB_response = get_data_from_dynamodb()
