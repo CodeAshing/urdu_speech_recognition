@@ -16,8 +16,7 @@ def success_message(data, message, code):
 def error_message(message, code):
     return {'status': "error", 'data': [], 'message': message, 'code': code}
 
-
-async def upload_audio_to_s3():
+def upload_audio_to_s3():
 
     audio_file = request.files.get('audio')
 
@@ -102,6 +101,7 @@ def google_prediction():
         return error_message("Error: {0}".format(e), 409)
 
 
+
 def get_data_from_dynamodb():
 
     TableName = 'recognised_audio_collection'
@@ -124,7 +124,6 @@ def get_data_from_dynamodb():
 @app.route("/")
 def init():
     return jsonify(success_message([], "Hey there, I am running", 200)), 200
-
 
 @app.route('/predict', methods=['POST'])
 def predictresult():
@@ -150,7 +149,6 @@ def predictresult():
 
     else:
         return jsonify(google_response), google_response['code']
-
 
 @app.route("/data", methods=['GET'])
 def data():
