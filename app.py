@@ -16,9 +16,8 @@ def success_message(data, message, code):
 def error_message(message, code):
     return {'status': "error", 'data': [], 'message': message, 'code': code}
 
-def upload_audio_to_s3():
 
-    audio_file = request.files.get('audio')
+def upload_audio_to_s3(audio_file):
 
     file_name = str(random.randint(100, 10000))+'.wav'
 
@@ -67,14 +66,14 @@ def upload_to_dynamoDB(file_url, google_response):
         return error_message("Record does not added to DynamoDB", 409)
 
 
-def google_prediction():
+
+def google_prediction(audio):
 
     try:
 
         predicted_text_urdu = ""
         AUDIO_FILE = '/tmp/audio.wav'
 
-        audio = request.files.get('audio')
         audio.save(AUDIO_FILE)
 
         recognizer = sr.Recognizer()
@@ -99,7 +98,6 @@ def google_prediction():
     except Exception as e:
         print(e)
         return error_message("Error: {0}".format(e), 409)
-
 
 
 def get_data_from_dynamodb():
@@ -128,12 +126,14 @@ def init():
 @app.route('/predict', methods=['POST'])
 def predictresult():
 
-    google_response = google_prediction()
+    audio_file = request.files.get('audio')
+
+    google_response = google_prediction(audio_file)
 
     if google_response['code'] == 200:
         prediction = google_response['data']['prediction']
 
-        s3_upload_response = upload_audio_to_s3()
+        s3_upload_response = upload_audio_to_s3(audio_file)
 
         if s3_upload_response['code'] == 200:
 
