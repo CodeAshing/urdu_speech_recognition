@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "c50e9172-3b48-4413-8794-113600f9e33c",
+		"name": "speechRecognition",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11771172"
+	},
+	"item": [
+		{
+			"name": "home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{link}}/",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "predict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "audio",
+							"type": "file",
+							"src": "/home/asharib/Downloads/FYPshahzad/urdu_speech_recognition/audio/download.wav"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{link}}/predict",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						"predict"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "predictionExample",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "audio",
+									"type": "file",
+									"src": "/home/asharib/Downloads/FYPshahzad/finalProject/google/download.wav"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{link}}/predict",
+							"host": [
+								"{{link}}"
+							],
+							"path": [
+								"predict"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "623"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.1 Python/3.9.7"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 24 May 2022 23:16:19 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": {\n        \"file_url\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/9180.wav\",\n        \"prediction\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n    },\n    \"message\": \"Record succesfully added to DynamoDB\",\n    \"status\": \"success\"\n}"
+				}
+			]
+		},
+		{
+			"name": "data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{link}}/data",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						"data"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{linkk}}/data",
+							"host": [
+								"{{linkk}}"
+							],
+							"path": [
+								"data"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "4152"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 25 May 2022 21:55:22 GMT"
+						},
+						{
+							"key": "x-amzn-RequestId",
+							"value": "b8223f44-b952-48d5-b4f3-f2d0e473895d"
+						},
+						{
+							"key": "x-amzn-Remapped-Content-Length",
+							"value": "4152"
+						},
+						{
+							"key": "x-amz-apigw-id",
+							"value": "Ss7XmFpshAcFU3g="
+						},
+						{
+							"key": "X-Amzn-Trace-Id",
+							"value": "Root=1-628ea5ca-41abd87e549088890519c166;Sampled=0"
+						},
+						{
+							"key": "X-Cache",
+							"value": "Miss from cloudfront"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 21091692796ba0a5be0a5b521f44889c.cloudfront.net (CloudFront)"
+						},
+						{
+							"key": "X-Amz-Cf-Pop",
+							"value": "SIN52-C2"
+						},
+						{
+							"key": "X-Amz-Cf-Id",
+							"value": "nZxRtUT2DcdAChIQoM5Fg7tJjkvWTDf2VPcHlZ19jnV_7yhDxRI1Aw=="
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"data\": [\n        {\n            \"prediction\": {\n                \"S\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n            },\n            \"source\": {\n                \"S\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/5713.wav\"\n            }\n        },\n        {\n            \"prediction\": {\n                \"S\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n            },\n            \"source\": {\n                \"S\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/8739.wav\"\n            }\n        },\n        {\n            \"prediction\": {\n                \"S\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n            },\n            \"source\": {\n                \"S\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/4489.wav\"\n            }\n        },\n        {\n            \"prediction\": {\n                \"S\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n            },\n            \"source\": {\n                \"S\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/2117.wav\"\n            }\n        },\n        {\n            \"prediction\": {\n                \"S\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n            },\n            \"source\": {\n                \"S\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/9183.wav\"\n            }\n        },\n        {\n            \"prediction\": {\n                \"S\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n            },\n            \"source\": {\n                \"S\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/9558.wav\"\n            }\n        },\n        {\n            \"prediction\": {\n                \"S\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n            },\n            \"source\": {\n                \"S\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/7354.wav\"\n            }\n        },\n        {\n            \"prediction\": {\n                \"S\": \"پٹھوں اور سر کا حادثاتی درد بام سے فورا سو جائیں پھر میٹھے اور کولیسٹرول سے بچیں\"\n            },\n            \"source\": {\n                \"S\": \"https://recognizedaudios.s3.me-south-1.amazonaws.com/audio/1165.wav\"\n            }\n        }\n    ],\n    \"message\": \"Record fetched succesfully\",\n    \"status\": \"success\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "link",
+			"value": "https://zb3aeahdg2.execute-api.me-south-1.amazonaws.com/dev",
+			"type": "string"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
