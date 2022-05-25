@@ -155,8 +155,24 @@ async def predictresult():
 @app.route("/data", methods=['GET'])
 def data():
 
-    dynamoDB_response = get_data_from_dynamodb()
+    TableName = 'recognised_audio_collection'
 
-    return jsonify(dynamoDB_response), dynamoDB_response['code']
+    dynamodb = boto3.client('dynamodb', region_name=region_name)
+
+    dynamodb_response = dynamodb.scan(
+        TableName=TableName
+    )
+    dynamodb_response = dynamodb_response['Items']
+
+    if dynamodb_response:
+
+        return jsonify(success_message(dynamodb_response, "Record fetched succesfully", 200)), 200
+
+    else:
+        return jsonify(error_message("No record found", 404)), 404
+
+    # dynamoDB_response = get_data_from_dynamodb()
+
+    # return jsonify(dynamoDB_response), dynamoDB_response['code']
 
 
