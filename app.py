@@ -128,25 +128,8 @@ def init():
 
 @app.route('/predict', methods=['POST'])
 async def predictresult():
-
-    try:
-
-        predicted_text_urdu = ""
-        AUDIO_FILE = '/tmp/audio.wav'
-
-        audio = request.files.get('audio')
-        audio.save(AUDIO_FILE)
-
-        recognizer = sr.Recognizer()
-
-        with sr.AudioFile(AUDIO_FILE) as source:
-            audio = recognizer.record(source)  # read the entire audio file
-
-        return jsonify(success_message([], "Hey there, I am running", 200)), 200
-
-    except Exception as e:
-        print(e)
-        return error_message("Error: {0}".format(e), 409)
+    
+    return jsonify(success_message([], "Hey there, I am running", 200)), 200
 
 
 @app.route("/data", methods=['GET'])
