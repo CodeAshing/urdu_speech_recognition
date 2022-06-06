@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import speech_recognition as sr
+from googletrans import Translator, constants
 import boto3
 import random
 
@@ -45,7 +46,7 @@ def upload_audio_to_s3(audio_file):
         return error_message("Audio file not uploaded to S3", 409)
 
 # Define function to upload details to DynamoDB
-def upload_to_dynamoDB(file_url, google_response):
+def upload_to_dynamoDB(file_url, google_response,english_prediction):
 
     #  Get the DynamoDB object
     dynamodb = boto3.client('dynamodb', region_name=region_name)
@@ -54,7 +55,8 @@ def upload_to_dynamoDB(file_url, google_response):
         TableName=TableName,
         Item={
             'source': {'S': file_url},
-            'prediction': {'S': google_response}
+            'urdu': {'S': google_response},
+            'english': {'S': english_prediction}
         }
     )
 
@@ -62,7 +64,8 @@ def upload_to_dynamoDB(file_url, google_response):
     if dynamodb_response['ResponseMetadata']['HTTPStatusCode'] == 200:
         # Prepare response dictionary
         response_dictionary = {"file_url": file_url,
-                               "prediction": google_response}
+                               "urdu": google_response,
+                               "english": english_prediction}
 
         return success_message(response_dictionary, "Record succesfully added to DynamoDB", 200)
     else:
@@ -75,6 +78,7 @@ def google_prediction(audio):
     try:
 
         predicted_text_urdu = ""
+        predicted_text_eng = ""
         AUDIO_FILE = '/tmp/audio.wav'
         # save audio in temporary file
         audio.save(AUDIO_FILE)
@@ -90,9 +94,14 @@ def google_prediction(audio):
             try:
                 # Get the text from audio
                 predicted_text_urdu = recognizer.recognize_google(
-                    audio, language="ur")
+                    audio, language="ur-PK")
+
+                translator = Translator()
+                predicted_text_eng = translator.translate(predicted_text_urdu)
+                predicted_text_eng = predicted_text_eng.text
+
                 # Prepare response dictionary
-                response_dictionary = {"prediction": predicted_text_urdu}
+                response_dictionary = {"prediction": predicted_text_urdu,"english_prediction":predicted_text_eng}
 
                 return success_message(response_dictionary, "Audio converted succesfully", 200)
             except sr.UnknownValueError:
@@ -139,6 +148,7 @@ def predictresult():
     if google_response['code'] == 200:
         # get the text from the response
         prediction = google_response['data']['prediction']
+        english_prediction = google_response['data']['english_prediction']
         # upload the audio to S3
         s3_upload_response = upload_audio_to_s3(audio_file)
         # check if the audio is uploaded to S3 bucket
@@ -147,7 +157,7 @@ def predictresult():
             file_url = s3_upload_response['data']['file_url']
             # upload the file URL and prediction to DynamoDB
             dynamoDB_upload_response = upload_to_dynamoDB(
-                file_url, prediction)
+                file_url, prediction,english_prediction)
 
             return jsonify(dynamoDB_upload_response), dynamoDB_upload_response['code']
         else:

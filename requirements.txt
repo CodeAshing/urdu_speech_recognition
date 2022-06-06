@@ -4,3 +4,4 @@ boto3==1.20.29
 markupsafe==2.0.1
 SpeechRecognition==3.8.1
 boto3==1.20.29
+googletrans==3.1.0a0
