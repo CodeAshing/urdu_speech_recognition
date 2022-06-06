@@ -12,12 +12,12 @@ https://zb3aeahdg2.execute-api.me-south-1.amazonaws.com/dev
 ### End Points
 
 > /
-- This is just root end point which give show you the structure of response and you can validate that the server is running. This is **GET** method.
+- This is just root end point which give you the structure of response and you can validate that the server is running. This is **GET** method.
 
 > /data
 - This endpoint give the list of all the data (audio file url and prediction) which is processed by the application from the day its deploed. This is **GET** method.
 
 > /predict
-- This is the main end pouint in which you send your audio file in preferably **.wav** format in a body (multipart) then the app save that file in S3 bucket then apply speech recognition and then save audio url and prediction to the dynamoDB. This is **POST** method.
+- This is the main end point in which you send your audio file in preferably **.wav** format in a body (multipart) then the app save that file in S3 bucket then apply speech recognition and then save audio url and prediction to the dynamoDB. This is **POST** method.
 
 I have also added postman collection which you can import on your postman so you can get the examples of request and response.
